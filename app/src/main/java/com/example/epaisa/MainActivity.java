@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
         progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.show();
 
+        //API Calls
         if (isNetworkAvailable()) {
 
             MVPDemoPresenter countryPresenter = new MVPDemoPresenter(MainActivity.this);
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
             Toast.makeText(MainActivity.this, "Internet connections seems to be offline", Toast.LENGTH_SHORT).show();
         }
 
+        //initialization
         list_myProducts = findViewById(R.id.list_myProducts);
         list_myProducts.setHasFixedSize(true);
         final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
 
     }
 
-    //check internet connection
+    //Check network connection
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
     }
 
 
-    //Set list data adapter
+    //Set list data adapter view
     public class OrderDiscountAdapter extends RecyclerView.Adapter<OrderDiscountAdapter.ViewHolder> {
 
         private List<SongResponse.Result> data = new ArrayList<SongResponse.Result>();
@@ -151,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
                     ImageLoader imageLoader = ImageLoader.getInstance();
 
                     DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                            .resetViewBeforeLoading(true) //ic_shop
-                            .showImageForEmptyUri(R.color.gray) //ic_group_defaulting
+                            .resetViewBeforeLoading(true)
+                            .showImageForEmptyUri(R.color.gray)
                             .showImageOnFail(R.color.gray)
                             .showImageOnLoading(R.color.gray).build();
 
@@ -180,15 +182,20 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
                     @Override
                     public void onClick(View v) {
 
-                        //Passing data whole data using GSON to another activity
-                       SongResponse.Result objSong;
-                        Gson gson = new Gson();
-                        objSong = data.get(position);
-                        String json = gson.toJson(objSong);
+                        //Passing whole data using GSON to another activity
+                        try {
+                            SongResponse.Result objSong;
+                            Gson gson = new Gson();
+                            objSong = data.get(position);
+                            String json = gson.toJson(objSong);
 
-                        Intent intent = new Intent(MainActivity.this, SongDetailsActivity.class);
-                        intent.putExtra("songDetails", json);
-                        startActivity(intent);
+                            Intent intent = new Intent(MainActivity.this, SongDetailsActivity.class);
+                            intent.putExtra("songDetails", json);
+                            startActivity(intent);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 });
@@ -222,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements MVPDemoView {
             public ViewHolder(View view) {
                 super(view);
 
-                //Intiliazation
+                //Initialization
                 edit_profile = view.findViewById(R.id.edit_profile);
                 txt_ArtistName = view.findViewById(R.id.txt_ArtistName);
                 txt_collectioncensoredname = view.findViewById(R.id.txt_collectioncensoredname);

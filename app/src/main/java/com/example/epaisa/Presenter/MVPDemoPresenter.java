@@ -34,32 +34,13 @@ public class MVPDemoPresenter {
                         SongResponse data = response.body();
 
 
-                            if (data.getResults().size() > 0){
+                        if (data.getResults().size() > 0) {
 
-                              //  countryView.uninstallMessage("Notification sent");
-                                countryView.notificationData(data.getResults());
+                            countryView.notificationData(data.getResults());
 
-                            }else {
-
-                                countryView.LoginError("Notification not available");
-
-                                /*AlertDialog.Builder builder = new AlertDialog.Builder(view);
-                                builder.setMessage("Notification not available")
-                                        .setCancelable(false)
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                AlertDialog alert = builder.create();
-                                alert.show();*/
-
-                              //  countryView.uninstallMessage("Notification not available");
-
-                            }
-
-
-                   //     }
+                        } else {
+                            countryView.LoginError("Data not available");
+                        }
                     }
 
                     @Override
