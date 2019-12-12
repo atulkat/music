@@ -35,6 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SongDetailsActivity extends AppCompatActivity {
 
+    //Data declaration
     TextView txt_ArtistName,txt_CollectionPrice,CollectionName,txt_Country,txt_actionName;
     ImageView img_back;
     CircleImageView edit_profile_image;
@@ -47,6 +48,7 @@ public class SongDetailsActivity extends AppCompatActivity {
 
         try {
 
+            //Data initialization
             txt_actionName = findViewById(R.id.txt_actionName);
             img_back = findViewById(R.id.img_back);
             txt_ArtistName = findViewById(R.id.txt_ArtistName);
@@ -149,8 +151,8 @@ public class SongDetailsActivity extends AppCompatActivity {
             ImageLoader imageLoader = ImageLoader.getInstance();
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                    .resetViewBeforeLoading(true) //ic_shop
-                    .showImageForEmptyUri(R.color.gray) //ic_group_defaulting
+                    .resetViewBeforeLoading(true)
+                    .showImageForEmptyUri(R.color.gray)//place holder while loading image response
                     .showImageOnFail(R.color.gray)
                     .showImageOnLoading(R.color.gray).build();
 
